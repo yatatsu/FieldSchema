@@ -1,4 +1,4 @@
-package com.yatatsu.example.processor;
+package com.yatatsu.fieldschema.processor;
 
 import java.io.IOException;
 import javax.annotation.processing.Filer;

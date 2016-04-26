@@ -1,4 +1,4 @@
-package com.yatatsu.example.processor;
+package com.yatatsu.fieldschema.processor;
 
 
 public class FieldSchemaCollection {

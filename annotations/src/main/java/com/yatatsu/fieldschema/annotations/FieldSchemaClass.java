@@ -1,4 +1,4 @@
-package com.yatatsu.example.annotations;
+package com.yatatsu.fieldschema.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

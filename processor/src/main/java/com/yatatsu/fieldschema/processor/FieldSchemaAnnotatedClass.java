@@ -1,4 +1,4 @@
-package com.yatatsu.example.processor;
+package com.yatatsu.fieldschema.processor;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;

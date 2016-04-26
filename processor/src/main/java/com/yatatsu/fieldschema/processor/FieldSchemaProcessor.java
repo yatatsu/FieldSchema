@@ -1,5 +1,6 @@
-package com.yatatsu.example.processor;
+package com.yatatsu.fieldschema.processor;
 
+import com.yatatsu.fieldschema.annotations.FieldSchemaClass;
 import java.io.IOException;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -41,7 +42,7 @@ public class FieldSchemaProcessor extends AbstractProcessor {
     }
     try {
       FieldSchemaCollection fieldSchemaCollection = new FieldSchemaCollection();
-      roundEnv.getElementsAnnotatedWith(com.yatatsu.example.annotations.FieldSchemaClass.class)
+      roundEnv.getElementsAnnotatedWith(FieldSchemaClass.class)
           .stream()
           .map(element -> new FieldSchemaAnnotatedClass((TypeElement) element, elements, types))
           .forEach(fieldSchemaCollection::applyAnnotatedClass);
