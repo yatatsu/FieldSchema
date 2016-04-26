@@ -1,0 +1,9 @@
+apply plugin: 'java'
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+  compile project(':annotations')
+  compile 'com.squareup:javapoet:1.6.1'
+}
