@@ -2,7 +2,6 @@ package com.yatatsu.fieldschema.processor;
 
 import javax.lang.model.element.Element;
 
-
 public class ProcessingException extends RuntimeException {
 
   public final Element element;

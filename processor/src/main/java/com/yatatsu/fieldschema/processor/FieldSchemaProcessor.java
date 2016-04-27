@@ -3,6 +3,7 @@ package com.yatatsu.fieldschema.processor;
 import com.yatatsu.fieldschema.annotations.FieldSchemaClass;
 import java.io.IOException;
 import java.util.Set;
+import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
@@ -16,11 +17,9 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-@SupportedAnnotationTypes({
-    "FieldSchemaClass"
-})
-public class FieldSchemaProcessor extends AbstractProcessor {
+@SupportedSourceVersion(SourceVersion.RELEASE_8) @SupportedAnnotationTypes({
+    "com.yatatsu.fieldschema.annotations.FieldSchemaClass"
+}) public class FieldSchemaProcessor extends AbstractProcessor {
 
   private Messager messager;
   private Elements elements;
@@ -41,20 +40,17 @@ public class FieldSchemaProcessor extends AbstractProcessor {
       return true;
     }
     try {
-      FieldSchemaCollection fieldSchemaCollection = new FieldSchemaCollection();
-      roundEnv.getElementsAnnotatedWith(FieldSchemaClass.class)
-          .stream()
-          .map(element -> new FieldSchemaAnnotatedClass((TypeElement) element, elements, types))
-          .forEach(fieldSchemaCollection::applyAnnotatedClass);
+      Stream<FieldSchemaClassHolder> fieldSchemaClassHolderList =
+          roundEnv.getElementsAnnotatedWith(FieldSchemaClass.class)
+              .stream()
+              .map(element -> new FieldSchemaClassHolder((TypeElement) element));
 
-      new FieldSchemaCodeWriter(fieldSchemaCollection).write(filer);
-
+      new FieldSchemaCodeWriter(fieldSchemaClassHolderList).write(filer);
     } catch (ProcessingException e) {
       messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage(), e.element);
     } catch (IOException e) {
       e.printStackTrace();
-      messager.printMessage(Diagnostic.Kind.ERROR,
-          "Error in generating code " + e.getMessage());
+      messager.printMessage(Diagnostic.Kind.ERROR, "Error in generating code " + e.getMessage());
     }
     return false;
   }
