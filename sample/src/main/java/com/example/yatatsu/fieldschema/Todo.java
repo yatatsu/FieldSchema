@@ -4,7 +4,8 @@ import com.yatatsu.fieldschema.annotations.FieldSchemaClass;
 import java.util.Date;
 
 @FieldSchemaClass public class Todo {
-  public String title;
+  public String name;
   public String description;
   public Date createdAt;
+  private String version;
 }
