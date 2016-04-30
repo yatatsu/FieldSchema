@@ -2,7 +2,6 @@ package com.yatatsu.fieldschema.processor;
 
 import com.yatatsu.fieldschema.annotations.FieldSchemaClass;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
@@ -14,8 +13,6 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8) @SupportedAnnotationTypes({
@@ -23,16 +20,12 @@ import javax.tools.Diagnostic;
 }) public class FieldSchemaProcessor extends AbstractProcessor {
 
   private Messager messager;
-  private Elements elements;
   private Filer filer;
-  private Types types;
 
   @Override public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
-    elements = processingEnv.getElementUtils();
     filer = processingEnv.getFiler();
     messager = processingEnv.getMessager();
-    types = processingEnv.getTypeUtils();
   }
 
   @Override

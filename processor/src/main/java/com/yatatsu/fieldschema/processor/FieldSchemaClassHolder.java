@@ -2,7 +2,8 @@ package com.yatatsu.fieldschema.processor;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
@@ -12,7 +13,7 @@ public class FieldSchemaClassHolder {
 
   private final TypeElement typeElement;
   private final TypeName typeName;
-  private final Stream<String> fieldNames;
+  private final List<String> fieldNames;
   private final String name;
 
   public FieldSchemaClassHolder(TypeElement typeElement, String name) {
@@ -26,15 +27,11 @@ public class FieldSchemaClassHolder {
     }
   }
 
-  public TypeElement getTypeElement() {
-    return typeElement;
-  }
-
   public TypeName getTypeName() {
     return typeName;
   }
 
-  public Stream<String> getFieldNames() {
+  public List<String> getFieldNames() {
     return fieldNames;
   }
 
@@ -50,11 +47,12 @@ public class FieldSchemaClassHolder {
     return name;
   }
 
-  private Stream<String> findAllNonPrivateFields(Element element) {
+  private List<String> findAllNonPrivateFields(Element element) {
     return element.getEnclosedElements()
         .stream()
         .filter(
             e -> e.getKind() == ElementKind.FIELD && !e.getModifiers().contains(Modifier.STATIC))
-        .map(Object::toString);
+        .map(Object::toString)
+        .collect(Collectors.toList());
   }
 }
