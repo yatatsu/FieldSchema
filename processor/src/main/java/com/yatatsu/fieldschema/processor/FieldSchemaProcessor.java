@@ -2,6 +2,7 @@ package com.yatatsu.fieldschema.processor;
 
 import com.yatatsu.fieldschema.annotations.FieldSchemaClass;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
@@ -43,7 +44,10 @@ import javax.tools.Diagnostic;
       Stream<FieldSchemaClassHolder> fieldSchemaClassHolderList =
           roundEnv.getElementsAnnotatedWith(FieldSchemaClass.class)
               .stream()
-              .map(element -> new FieldSchemaClassHolder((TypeElement) element));
+              .map(element -> {
+                FieldSchemaClass annotation = element.getAnnotation(FieldSchemaClass.class);
+                return new FieldSchemaClassHolder((TypeElement) element, annotation.name());
+              });
 
       new FieldSchemaCodeWriter(fieldSchemaClassHolderList).write(filer);
     } catch (ProcessingException e) {

@@ -13,11 +13,17 @@ public class FieldSchemaClassHolder {
   private final TypeElement typeElement;
   private final TypeName typeName;
   private final Stream<String> fieldNames;
+  private final String name;
 
-  public FieldSchemaClassHolder(TypeElement typeElement) {
+  public FieldSchemaClassHolder(TypeElement typeElement, String name) {
     this.typeElement = typeElement;
     this.typeName = ClassName.get(typeElement);
     this.fieldNames = findAllNonPrivateFields(typeElement);
+    if (name == null || name.isEmpty()) {
+      this.name = getSimpleClassName().toLowerCase();
+    } else {
+      this.name = name.toLowerCase();
+    }
   }
 
   public TypeElement getTypeElement() {
@@ -38,6 +44,10 @@ public class FieldSchemaClassHolder {
 
   public String getSimpleClassName() {
     return typeElement.getSimpleName().toString();
+  }
+
+  public String getName() {
+    return name;
   }
 
   private Stream<String> findAllNonPrivateFields(Element element) {

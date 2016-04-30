@@ -29,8 +29,9 @@ public class FieldSchemaCodeWriter {
   }
 
   private static TypeSpec createInnerTypeSpec(FieldSchemaClassHolder holder) {
-    TypeSpec.Builder builder = TypeSpec.classBuilder(holder.getSimpleClassName().toLowerCase())
-        .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL);
+    TypeSpec.Builder builder = TypeSpec.classBuilder(holder.getName())
+        .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+        .addJavadoc("Schemas for {@link $T }\n", holder.getTypeName());
     holder.getFieldNames()
         .map(fieldName -> FieldSpec.builder(String.class, fieldName, Modifier.PUBLIC,
             Modifier.STATIC, Modifier.FINAL).initializer("$S", fieldName).build())
