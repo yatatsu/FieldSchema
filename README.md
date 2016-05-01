@@ -2,15 +2,15 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Build Status](https://travis-ci.org/yatatsu/FieldSchema.svg?branch=master)](https://travis-ci.org/yatatsu/FieldSchema)
+[![](https://jitpack.io/v/yatatsu/FieldSchema.svg)](https://jitpack.io/#yatatsu/FieldSchema)
 
-[WIP] Generate field name constant (for Java, Android).
+Generate field name constant for Android.
 
 ## Usage
 
 FieldSchema helps you accessing field name in static.
 
-
-```
+```java
 @FieldSchemaClass(name = "myTodo") public class Todo {
   public String name;
   public String description;
@@ -21,7 +21,7 @@ FieldSchema helps you accessing field name in static.
 
 Here is generated code.
 
-```
+```java
 public final class FS {
   public static final String todo_name = "name";
 
@@ -35,9 +35,53 @@ public final class FS {
 
 You can use `FS.todo_name` instead of `"name"`.
 
+Constants named `{class name}_{field name}` in `FS.java`. To avoid collision name, Use `name` option.
+
+```java
+@FieldSchemaClass(name = "myTodo") public class Todo {
+  public String name;
+}
+```
+
+Here is generated.
+
+```java
+public final class FS {
+  public static final String mytodo_name = "name";
+}
+```
+
 ## Download
 
-Soon
+- Distributed by [JitPack](https://jitpack.io). Current version is 
+[![](https://jitpack.io/v/yatatsu/FieldSchema.svg)](https://jitpack.io/#yatatsu/FieldSchema)
+- You also need `android-apt` plugin.
+
+```groovy
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+  }
+}
+
+allprojects {
+  repositories {
+    maven { url "https://jitpack.io" }
+	}
+}
+```
+
+```groovy
+apply plugin: 'com.neenbedankt.android-apt'
+
+dependencies {
+  compile 'com.github.yatatsu.FieldSchema:annotations:0.1.0'
+  apt 'com.github.yatatsu.FieldSchema:processor:0.1.0'
+}
+```
 
 ## License
 
