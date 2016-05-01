@@ -19,12 +19,12 @@ public class FieldSchemaClassHolder {
   public FieldSchemaClassHolder(TypeElement typeElement, String name) {
     this.typeElement = typeElement;
     this.typeName = ClassName.get(typeElement);
-    this.fieldSchemaHolders = findAllNonPrivateFields(typeElement);
     if (name == null || name.length() == 0) {
       this.name = getSimpleClassName().toLowerCase();
     } else {
       this.name = name.toLowerCase();
     }
+    this.fieldSchemaHolders = findAllNonPrivateFields(typeElement);
   }
 
   public TypeElement getTypeElement() {
