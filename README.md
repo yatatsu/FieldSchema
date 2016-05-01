@@ -23,13 +23,13 @@ Here is generated code.
 
 ```java
 public final class FS {
-  public static final String todo_name = "name";
+  public static final String mytodo_name = "name";
 
-  public static final String todo_description = "description";
+  public static final String mytodo_description = "description";
 
-  public static final String todo_createdAt = "createdAt";
+  public static final String mytodo_createdAt = "createdAt";
 
-  public static final String todo_version = "version";
+  public static final String mytodo_version = "version";
 }
 ```
 
