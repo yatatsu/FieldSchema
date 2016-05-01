@@ -20,11 +20,15 @@ public class FieldSchemaClassHolder {
     this.typeElement = typeElement;
     this.typeName = ClassName.get(typeElement);
     this.fieldNames = findAllNonPrivateFields(typeElement);
-    if (name == null || name.isEmpty()) {
+    if (name == null || name.length() == 0) {
       this.name = getSimpleClassName().toLowerCase();
     } else {
       this.name = name.toLowerCase();
     }
+  }
+
+  public TypeElement getTypeElement() {
+    return typeElement;
   }
 
   public TypeName getTypeName() {
