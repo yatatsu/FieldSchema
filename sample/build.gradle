@@ -1,6 +1,16 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "io.realm:realm-gradle-plugin:0.89.1"
+  }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 android {
   compileSdkVersion 23
