@@ -11,6 +11,7 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
@@ -18,7 +19,8 @@ import javax.tools.Diagnostic;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8) @SupportedAnnotationTypes({
     "com.yatatsu.fieldschema.annotations.FieldSchemaClass"
-}) public class FieldSchemaProcessor extends AbstractProcessor {
+}) @SupportedOptions("fieldSchemaPackage") public class FieldSchemaProcessor
+    extends AbstractProcessor {
 
   private Messager messager;
   private Filer filer;
@@ -34,6 +36,10 @@ import javax.tools.Diagnostic;
     if (annotations.size() == 0) {
       return true;
     }
+    // option
+    String schemaPackage =
+        processingEnv.getOptions().getOrDefault("fieldSchemaPackage", "com.yatatsu.fieldschema");
+
     try {
       List<FieldSchemaHolder> holders = new ArrayList<>();
       roundEnv.getElementsAnnotatedWith(FieldSchemaClass.class).stream().map(element -> {
@@ -48,7 +54,7 @@ import javax.tools.Diagnostic;
         }
         holders.add(holder);
       });
-      new FieldSchemaCodeWriter(holders).write(filer);
+      new FieldSchemaCodeWriter(holders).write(schemaPackage, filer);
     } catch (ProcessingException e) {
       messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage(), e.element);
     } catch (IOException e) {

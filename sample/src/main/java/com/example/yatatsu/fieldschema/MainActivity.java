@@ -2,7 +2,6 @@ package com.example.yatatsu.fieldschema;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import com.yatatsu.fieldschema.FS;
 import io.realm.Realm;
 import io.realm.RealmResults;
 

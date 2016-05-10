@@ -3,7 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "io.realm:realm-gradle-plugin:0.89.1"
+    classpath "io.realm:realm-gradle-plugin:0.90.0"
   }
 }
 
@@ -32,6 +32,12 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+apt {
+  arguments {
+    fieldSchemaPackage 'com.example.yatatsu.fieldschema'
   }
 }
 

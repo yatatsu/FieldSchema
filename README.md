@@ -78,8 +78,8 @@ allprojects {
 apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
-  compile 'com.github.yatatsu.FieldSchema:annotations:0.1.0'
-  apt 'com.github.yatatsu.FieldSchema:processor:0.1.0'
+  compile 'com.github.yatatsu.FieldSchema:annotations:X.X.X'
+  apt 'com.github.yatatsu.FieldSchema:processor:X.X.X'
 }
 ```
 
