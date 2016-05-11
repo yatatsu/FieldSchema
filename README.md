@@ -35,7 +35,7 @@ public final class FS {
 
 You can use `FS.todo_name` instead of `"name"`.
 
-Constants named `{class name}_{field name}` in `FS.java`. To avoid collision name, Use `name` option.
+Constants named `{class name}_{field name}` in `FS.java`. To avoid collision name, Use `name` option. (The default is class name)
 
 ```java
 @FieldSchemaClass(name = "myTodo") public class Todo {
@@ -50,6 +50,21 @@ public final class FS {
   public static final String mytodo_name = "name";
 }
 ```
+
+### Use in library project
+
+When using in library project, `FS.java` cause collision because it has fixed package `com.yatatsu.fieldschema`.
+Use support apt option to avoid this, here is example.
+
+```build.gradle
+apt {
+  arguments {
+    fieldSchemaPackage 'com.example.app'
+  }
+}
+```
+
+And generate class is `com.example.app.FS`. The default package is `com.yatatsu.fieldschema`.
 
 ## Download
 
